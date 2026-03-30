@@ -1,112 +1,286 @@
+
 # 📉 Customer Churn Prediction using Cost-Sensitive Machine Learning
 
 ## 📌 Overview
 
-This project implements an **end-to-end Customer Churn Prediction system** that focuses on **real-world business impact rather than just model accuracy**. Unlike standard churn classifiers, this system uses **cost-sensitive learning** to explicitly penalize expensive mistakes—especially **false negatives**, where a churner is incorrectly predicted as a loyal customer.
+This project is a **complete end-to-end Customer Churn Prediction system** designed to optimize **real-world business decisions**, not just model accuracy.
 
-The goal is not just to predict churn, but to **support smarter retention decisions**.
+Unlike traditional ML projects, this system focuses on:
 
----
-
-## 🚀 Key Features
-
-* **Cost-Sensitive Modeling**
-  Incorporates misclassification costs to reflect real financial losses caused by churn.
-
-* **Class Imbalance Handling**
-  Addresses skewed churn distributions using weighting strategies instead of naïve oversampling.
-
-* **Multiple Model Comparisons**
-  Trains and evaluates baseline models and advanced classifiers under the same cost-aware framework.
-
-* **Business-Oriented Evaluation**
-  Goes beyond accuracy using:
-
-  * Precision, Recall, F1-score
-  * ROC–AUC
-  * Confusion Matrices
-  * Cost-based performance metrics
-
-* **Model Explainability**
-  Uses feature importance and explainable AI techniques to interpret predictions and identify churn drivers.
-
-* **Modular & Scalable Pipeline**
-  Clean separation of preprocessing, training, evaluation, robustness testing, and inference.
+- 💰 Minimizing financial loss (₹)
+- 🎯 Optimizing decision thresholds
+- 🧠 Selecting models based on business impact
 
 ---
 
-## 🧠 Why Cost-Sensitive Learning?
+## 🚀 Key Highlights
 
-In real businesses:
+### 💰 Cost-Sensitive Learning (Core Innovation)
 
-* Losing a customer (false negative) is far more expensive than contacting a loyal one (false positive).
-* Traditional ML models treat all errors equally, leading to misleading “high accuracy.”
+- False Negative (missed churner) → ₹10,000 loss  
+- False Positive (unnecessary offer) → ₹500 cost  
 
-This project explicitly **optimizes for decision quality**, ensuring the model focuses on customers that matter most.
+👉 Model is optimized to **minimize total cost**, not maximize accuracy.
 
 ---
 
-## 🗂️ Project Structure
+### 🎯 Threshold Optimization
+
+Instead of default `0.5`, the project:
+
+- Tests multiple thresholds
+- Selects **cost-optimal threshold**
+
+📉 Result:
+- Default cost: ₹944,000  
+- Optimized cost: ₹382,500  
+- 💸 Savings: **₹561,500**
+
+---
+
+### 🧠 Business-Driven Model Selection
+
+Even after training advanced models:
+
+- XGBoost
+- LightGBM
+- CatBoost
+- Stacking
+- ANN
+
+👉 Final selected model: **Logistic Regression**
+
+✔ Reason: **Lowest business cost**, not highest accuracy
+
+---
+
+### ⚙️ Complete ML Pipeline
 
 ```
+
+Data Loading → EDA → Cleaning → Feature Engineering →
+Encoding → Training → Evaluation →
+Threshold Optimization → Business Analysis →
+Model Saving → Inference
+
+```
+
+---
+
+### 📊 Models Used
+
+- Logistic Regression (Baseline + Tuned)
+- Decision Tree
+- Random Forest
+- XGBoost (Calibrated)
+- LightGBM
+- CatBoost
+- Stacking Ensemble
+- Artificial Neural Network (PyTorch)
+
+---
+
+### 📈 Evaluation Metrics
+
+- Accuracy
+- Precision / Recall / F1-score
+- ROC-AUC & PR-AUC
+- Confusion Matrix
+- Cross-validation
+- 💰 **Business Cost (Primary Metric)**
+
+---
+
+### 🔍 Explainability
+
+- SHAP Global Feature Importance
+- SHAP Individual Predictions
+- Helps identify **key churn drivers**
+
+---
+
+### 🤖 Deep Learning (ANN)
+
+- PyTorch-based neural network
+- Dropout + BatchNorm
+- Early stopping
+- Class imbalance handled using weighted loss
+
+---
+
+## 📊 Final Results
+
+| Model | ROC-AUC | Cost (₹) |
+|------|--------|---------|
+| Logistic Regression | ~0.845 | **₹392,500 (Best)** |
+| ANN | ~0.845 | ₹383,500 |
+| Stacking | ~0.846 | ₹400,500 |
+
+👉 Final Model: **Logistic Regression (Cost-Optimal)**
+
+---
+
+## 📂 Project Structure
+
+```
+
 ├── data/
-│   ├── raw/
-│   └── processed/
-├── preprocessing/
-│   └── feature_engineering.py
+│   └── raw/
+│       └── telco_churn.csv
 ├── models/
-│   ├── baseline/
-│   └── cost_sensitive/
-├── training/
-│   └── train_models.py
-├── evaluation/
-│   ├── evaluate_models.py
-│   └── robustness_test.py
-├── explainability/
-│   └── model_explanations.py
-├── utils/
-│   └── metrics.py
-└── README.md
+│   └── churn_model.pkl
+├── notebook/
+│   └── churn_pipeline.ipynb
+├── README.md
+
+````
+
+---
+
+## ⚙️ Installation & Setup (Run Locally)
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/your-username/churn-prediction.git
+cd churn-prediction
+````
+
+---
+
+### 2️⃣ Create Virtual Environment (Recommended)
+
+```bash
+python -m venv venv
+```
+
+Activate it:
+
+**Windows:**
+
+```bash
+venv\Scripts\activate
+```
+
+**Mac/Linux:**
+
+```bash
+source venv/bin/activate
 ```
 
 ---
 
-## ⚙️ Workflow
+### 3️⃣ Install Dependencies
 
-1. Data preprocessing & feature engineering
-2. Cost-sensitive model training
-3. Model comparison and evaluation
-4. Robustness and generalization testing
-5. Explainability and insight extraction
+```bash
+pip install -r requirements.txt
+```
 
----
+If `requirements.txt` is not available, install manually:
 
-## 📊 Results
-
-The cost-sensitive models consistently achieve **higher recall for churners** and **lower overall business cost** compared to accuracy-optimized baselines, making them more suitable for real-world deployment.
+```bash
+pip install pandas numpy matplotlib seaborn scikit-learn xgboost lightgbm catboost shap optuna torch
+```
 
 ---
 
-## 🧪 Tech Stack
+### 4️⃣ Add Dataset
 
-* Python
-* Scikit-learn
-* Pandas, NumPy
-* Matplotlib / Seaborn
-* Explainable AI tools
+Place the dataset here:
+
+```
+data/raw/telco_churn.csv
+```
 
 ---
 
-## 🎯 Use Cases
+### 5️⃣ Run the Project
+
+#### Option 1: Run Jupyter Notebook
+
+```bash
+jupyter notebook
+```
+
+Open:
+
+```
+churn_pipeline.ipynb
+```
+
+Run all cells.
+
+---
+
+#### Option 2: Run as Python Script (if converted)
+
+```bash
+python main.py
+```
+
+---
+
+## 💾 Model Output
+
+After running:
+
+```
+models/churn_model.pkl
+```
+
+Contains:
+
+* Trained model
+* Optimal threshold
+
+---
+
+## 🚀 Inference (Using Saved Model)
+
+```python
+import pickle
+
+with open("models/churn_model.pkl", "rb") as f:
+    saved_obj = pickle.load(f)
+
+model = saved_obj["model"]
+threshold = saved_obj["threshold"]
+
+preds = model.predict_proba(X_new)[:, 1]
+predictions = (preds >= threshold).astype(int)
+```
+
+---
+
+## 🎯 Real-World Applications
 
 * Telecom churn prediction
-* Subscription-based services
-* Banking and insurance retention
-* Any imbalanced, cost-critical classification problem
+* Subscription services (Netflix, SaaS)
+* Banking & insurance retention
+* E-commerce customer analytics
 
 ---
 
-## 📌 Key Takeaway
+## 📌 Key Takeaways
 
-This project demonstrates how **machine learning decisions should align with business objectives**, not just leaderboard metrics.
+✔ Accuracy alone is misleading
+✔ Threshold tuning is critical
+✔ Business cost should drive ML decisions
+✔ Simpler models can outperform complex ones in real-world
+
+---
+
+## 👨‍💻 Author
+
+**Pranav**
+
+---
+
+## ⭐ Final Thought
+
+> Machine Learning is not about predicting correctly.
+> It is about making the **right decision at the right cost**.
+
+```
+
 
